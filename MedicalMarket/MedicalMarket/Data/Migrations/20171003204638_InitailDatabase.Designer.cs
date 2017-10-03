@@ -11,9 +11,10 @@ using System;
 namespace MedicalMarket.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171003204638_InitailDatabase")]
+    partial class InitailDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,22 +39,6 @@ namespace MedicalMarket.Data.Migrations
                     b.ToTable("categoreis");
                 });
 
-            modelBuilder.Entity("MedicalMarket.Models.App.Image", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<byte[]>("ImageData");
-
-                    b.Property<string>("ItemId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ItemId");
-
-                    b.ToTable("Image");
-                });
-
             modelBuilder.Entity("MedicalMarket.Models.App.Item", b =>
                 {
                     b.Property<string>("Id")
@@ -66,8 +51,6 @@ namespace MedicalMarket.Data.Migrations
                     b.Property<DateTime>("CreateAt");
 
                     b.Property<DateTime>("DeletedAt");
-
-                    b.Property<string>("Description");
 
                     b.Property<bool>("IsDeleted");
 
@@ -241,13 +224,6 @@ namespace MedicalMarket.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("MedicalMarket.Models.App.Image", b =>
-                {
-                    b.HasOne("MedicalMarket.Models.App.Item", "Item")
-                        .WithMany("Images")
-                        .HasForeignKey("ItemId");
                 });
 
             modelBuilder.Entity("MedicalMarket.Models.App.Item", b =>

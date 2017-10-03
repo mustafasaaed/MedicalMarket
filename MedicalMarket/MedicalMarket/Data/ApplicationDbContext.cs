@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MedicalMarket.Models;
+using MedicalMarket.Models.App;
 
 namespace MedicalMarket.Data
 {
@@ -14,6 +15,9 @@ namespace MedicalMarket.Data
             : base(options)
         {
         }
+
+        public DbSet<Category> categoreis { get; set; }
+        public DbSet<Item> Items { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
