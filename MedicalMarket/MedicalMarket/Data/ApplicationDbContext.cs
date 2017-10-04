@@ -16,8 +16,13 @@ namespace MedicalMarket.Data
         {
         }
 
-        public DbSet<Category> categoreis { get; set; }
+        public DbSet<Category> Categoreis { get; set; }
         public DbSet<Item> Items { get; set; }
+        public DbSet<Image> Images { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

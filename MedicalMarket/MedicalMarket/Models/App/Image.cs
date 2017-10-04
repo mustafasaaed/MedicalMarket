@@ -9,6 +9,7 @@ namespace MedicalMarket.Models.App
     {
         public string Id { set; get; }
         public byte[] ImageData { set; get; }
+        public string ItemId { get; set; }
         public Item Item { get; set; }
     }
 }
