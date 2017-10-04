@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
-namespace MedicalMarket.Data.Migrations
+namespace MedicalMarket.Data
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171003211336_AddImageToItem")]
-    partial class AddImageToItem
+    [Migration("20171004014939_InitialDbSchema")]
+    partial class InitialDbSchema
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,24 @@ namespace MedicalMarket.Data.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.0-rtm-26452")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("MedicalMarket.Models.App.Cart", b =>
+                {
+                    b.Property<string>("RecodId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CartId");
+
+                    b.Property<int>("Count");
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<string>("Item");
+
+                    b.HasKey("RecodId");
+
+                    b.ToTable("Carts");
+                });
 
             modelBuilder.Entity("MedicalMarket.Models.App.Category", b =>
                 {
@@ -36,7 +54,7 @@ namespace MedicalMarket.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("categoreis");
+                    b.ToTable("Categoreis");
                 });
 
             modelBuilder.Entity("MedicalMarket.Models.App.Image", b =>
@@ -52,7 +70,7 @@ namespace MedicalMarket.Data.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("Image");
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("MedicalMarket.Models.App.Item", b =>
@@ -76,13 +94,57 @@ namespace MedicalMarket.Data.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<double>("Price");
+                    b.Property<decimal>("Price");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Items");
+                });
+
+            modelBuilder.Entity("MedicalMarket.Models.App.Order", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Address");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<DateTime>("OrderDate");
+
+                    b.Property<string>("Phone");
+
+                    b.Property<decimal>("Total");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("MedicalMarket.Models.App.OrderDetail", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ItemId");
+
+                    b.Property<string>("OrderId");
+
+                    b.Property<int>("Quantity");
+
+                    b.Property<decimal>("UnitPrice");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderDetails");
                 });
 
             modelBuilder.Entity("MedicalMarket.Models.ApplicationUser", b =>
@@ -256,6 +318,17 @@ namespace MedicalMarket.Data.Migrations
                     b.HasOne("MedicalMarket.Models.App.Category", "Category")
                         .WithMany("Items")
                         .HasForeignKey("CategoryId");
+                });
+
+            modelBuilder.Entity("MedicalMarket.Models.App.OrderDetail", b =>
+                {
+                    b.HasOne("MedicalMarket.Models.App.Item", "Item")
+                        .WithMany()
+                        .HasForeignKey("ItemId");
+
+                    b.HasOne("MedicalMarket.Models.App.Order", "Order")
+                        .WithMany("OrderDetail")
+                        .HasForeignKey("OrderId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

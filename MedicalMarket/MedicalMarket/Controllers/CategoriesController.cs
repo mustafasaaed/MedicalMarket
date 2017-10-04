@@ -23,7 +23,7 @@ namespace MedicalMarket.Controllers
         // GET: Categories
         public async Task<IActionResult> Index()
         {
-            return View(await _context.categoreis.ToListAsync());
+            return View(await _context.Categoreis.ToListAsync());
         }
 
         // GET: Categories/Details/5
@@ -34,7 +34,7 @@ namespace MedicalMarket.Controllers
                 return NotFound();
             }
 
-            var category = await _context.categoreis
+            var category = await _context.Categoreis
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (category == null)
             {
@@ -74,7 +74,7 @@ namespace MedicalMarket.Controllers
                 return NotFound();
             }
 
-            var category = await _context.categoreis.SingleOrDefaultAsync(m => m.Id == id);
+            var category = await _context.Categoreis.SingleOrDefaultAsync(m => m.Id == id);
             if (category == null)
             {
                 return NotFound();
@@ -125,7 +125,7 @@ namespace MedicalMarket.Controllers
                 return NotFound();
             }
 
-            var category = await _context.categoreis
+            var category = await _context.Categoreis
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (category == null)
             {
@@ -140,15 +140,15 @@ namespace MedicalMarket.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var category = await _context.categoreis.SingleOrDefaultAsync(m => m.Id == id);
-            _context.categoreis.Remove(category);
+            var category = await _context.Categoreis.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Categoreis.Remove(category);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool CategoryExists(string id)
         {
-            return _context.categoreis.Any(e => e.Id == id);
+            return _context.Categoreis.Any(e => e.Id == id);
         }
     }
 }
