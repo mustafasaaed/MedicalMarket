@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MedicalMarket.Data;
 using MedicalMarket.Models.App;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace MedicalMarket.Controllers
 {
@@ -33,7 +35,7 @@ namespace MedicalMarket.Controllers
                 return NotFound();
             }
 
-            var item = await _context.Items
+            var item = await _context.Items.Include(i => i.Images)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (item == null)
             {
@@ -46,6 +48,8 @@ namespace MedicalMarket.Controllers
         // GET: Items/Create
         public IActionResult Create()
         {
+            var categoreis = _context.categoreis.ToList();
+            ViewBag.Categoreis = categoreis;
             return View();
         }
 
@@ -54,11 +58,24 @@ namespace MedicalMarket.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,IsOutOfStock,Price,Count,CreateAt,DeletedAt,IsDeleted")] Item item)
+        public async Task<IActionResult> Create([Bind("Id,Name,IsOutOfStock,Price,Count,CategoryId,Description,CreateAt,DeletedAt,IsDeleted")] Item item, IEnumerable<IFormFile> images)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(item);
+
+                if (images != null)
+                {
+                    var imageList = new List<Image>();
+                    foreach (var image in images)
+                    {
+                        var data = ConvertToBytes(image);
+                        var img = new Image { ItemId = item.Id };
+                        img.ImageData = data;
+                        imageList.Add(img);
+                    }
+                    item.Images = imageList;
+                }
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -148,6 +165,15 @@ namespace MedicalMarket.Controllers
         private bool ItemExists(string id)
         {
             return _context.Items.Any(e => e.Id == id);
+        }
+
+        private byte[] ConvertToBytes(IFormFile image)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                image.OpenReadStream().CopyTo(memoryStream);
+                return memoryStream.ToArray();
+            }
         }
     }
 }

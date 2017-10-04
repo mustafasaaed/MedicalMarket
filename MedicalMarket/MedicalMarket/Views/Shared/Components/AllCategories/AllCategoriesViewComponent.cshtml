@@ -1,0 +1,10 @@
+﻿@model List<MedicalMarket.Models.App.Category>
+
+<ul>
+    <h3>Browse All Categories</h3>
+
+    @foreach (var item in Model)
+    {
+        <li><a href="#">@item.Name</a></li>
+    }
+</ul>

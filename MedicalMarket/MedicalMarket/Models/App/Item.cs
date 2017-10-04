@@ -12,6 +12,7 @@ namespace MedicalMarket.Models.App
         public bool IsOutOfStock { get; set; }
         public double Price { get; set; }
         public int Count { get; set; }
+        public string CategoryId { get; set; }
         public DateTime CreateAt { get; set; }
         public DateTime DeletedAt { get; set; }
         public bool IsDeleted { get; set; }

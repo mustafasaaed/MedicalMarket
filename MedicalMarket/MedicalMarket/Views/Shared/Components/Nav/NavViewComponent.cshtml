@@ -1,0 +1,16 @@
+﻿@model List<MedicalMarket.Models.App.Category>
+
+<a class="toggleMenu" href="#">Menu</a>
+<ul class="nav">
+
+    <li>
+        <a href="#">الرئيسية</a>
+    </li>
+
+    @foreach (var item in Model)
+    {
+        <li>
+            <a href="#">@item.Name</a>
+        </li>
+    }
+</ul>
