@@ -363,6 +363,7 @@ body {
 
 .toggleMenu {
 	display: none;
+    text-align:right;
 	padding: 16px 15px;
 	color: #fff;
 	width: 95%;
@@ -371,9 +372,12 @@ body {
 	background: url("../images/nav-icon.png") no-repeat 98% center;
 }
 
+.menu-items {
+    text-align:right;
+}
+
 .nav {
 	list-style: none;
-	*zoom: 1;
 	background: #e44f2b;
 	border-bottom: 1px solid #DB3C15;
 }
@@ -412,7 +416,7 @@ body {
 }
 
 .nav>li {
-	float: left;
+	float: right;
 }
 
 .nav>li:first-child,
