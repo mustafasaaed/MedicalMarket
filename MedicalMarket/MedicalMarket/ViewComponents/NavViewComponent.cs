@@ -19,7 +19,7 @@ namespace MedicalMarket.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var navItems = _context.categoreis.Take(6).ToList();
+            var navItems = _context.Categoreis.Take(6).ToList();
             return View("NavViewComponent", navItems);
         }
     }

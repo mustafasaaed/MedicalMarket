@@ -48,7 +48,7 @@ namespace MedicalMarket.Controllers
         // GET: Items/Create
         public IActionResult Create()
         {
-            var categoreis = _context.categoreis.ToList();
+            var categoreis = _context.Categoreis.ToList();
             ViewBag.Categoreis = categoreis;
             return View();
         }
