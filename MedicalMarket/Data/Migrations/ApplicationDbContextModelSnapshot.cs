@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
-namespace MedicalMarket.Data
+namespace MedicalMarket.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -22,7 +22,7 @@ namespace MedicalMarket.Data
 
             modelBuilder.Entity("MedicalMarket.Models.App.Cart", b =>
                 {
-                    b.Property<string>("RecodId")
+                    b.Property<string>("RecordId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("CartId");
@@ -31,9 +31,11 @@ namespace MedicalMarket.Data
 
                     b.Property<DateTime>("CreatedAt");
 
-                    b.Property<string>("Item");
+                    b.Property<string>("ItemId");
 
-                    b.HasKey("RecodId");
+                    b.HasKey("RecordId");
+
+                    b.HasIndex("ItemId");
 
                     b.ToTable("Carts");
                 });
@@ -303,6 +305,13 @@ namespace MedicalMarket.Data
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("MedicalMarket.Models.App.Cart", b =>
+                {
+                    b.HasOne("MedicalMarket.Models.App.Item", "Item")
+                        .WithMany()
+                        .HasForeignKey("ItemId");
                 });
 
             modelBuilder.Entity("MedicalMarket.Models.App.Image", b =>

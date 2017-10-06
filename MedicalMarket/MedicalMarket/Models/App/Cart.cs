@@ -9,7 +9,7 @@ namespace MedicalMarket.Models.App
     public class Cart
     {
         [Key]
-        public string RecodId { get; set; }
+        public string RecordId { get; set; }
         public string CartId { get; set; }
         public string ItemId { get; set; }
         public int Count { get; set; }

@@ -48,7 +48,7 @@ namespace MedicalMarket.Controllers
         public IActionResult RemoveFromCart(string id)
         {
             var cart = ShoppingCart.GetCart(this.HttpContext);
-            var ItemName = _context.Carts.SingleOrDefault(i => i.RecodId == id).Item.Name;
+            var ItemName = _context.Carts.SingleOrDefault(i => i.RecordId == id).Item.Name;
 
             var itemCount = cart.RemoveFromCart(id);
 

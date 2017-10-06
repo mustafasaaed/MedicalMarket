@@ -35,7 +35,7 @@ namespace MedicalMarket
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
-
+            services.AddSession();
             services.AddMvc();
         }
 
@@ -53,6 +53,7 @@ namespace MedicalMarket
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseSession();
             app.UseStaticFiles();
 
             app.UseAuthentication();

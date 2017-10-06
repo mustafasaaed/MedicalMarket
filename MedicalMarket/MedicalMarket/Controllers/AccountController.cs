@@ -13,6 +13,8 @@ using Microsoft.Extensions.Options;
 using MedicalMarket.Models;
 using MedicalMarket.Models.AccountViewModels;
 using MedicalMarket.Services;
+using MedicalMarket.Helper;
+using Microsoft.AspNetCore.Http;
 
 namespace MedicalMarket.Controllers
 {
@@ -39,6 +41,15 @@ namespace MedicalMarket.Controllers
 
         [TempData]
         public string ErrorMessage { get; set; }
+        private void MigrateShoppingCart(string UserName)
+        {
+            // Associate shopping cart items with logged-in user
+            var cart = ShoppingCart.GetCart(this.HttpContext);
+
+            cart.MigrateCart(UserName);
+            HttpContext.Session.SetString(ShoppingCart.CartSessionKey, UserName);
+        }
+
 
         [HttpGet]
         [AllowAnonymous]
@@ -65,6 +76,7 @@ namespace MedicalMarket.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+                    MigrateShoppingCart(model.Email);
                     return RedirectToLocal(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
@@ -232,6 +244,7 @@ namespace MedicalMarket.Controllers
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation("User created a new account with password.");
+                    MigrateShoppingCart(model.Email);
                     return RedirectToLocal(returnUrl);
                 }
                 AddErrors(result);

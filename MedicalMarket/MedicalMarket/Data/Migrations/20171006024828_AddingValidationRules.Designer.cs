@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
-namespace MedicalMarket.Data
+namespace MedicalMarket.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171004014939_InitialDbSchema")]
-    partial class InitialDbSchema
+    [Migration("20171006024828_AddingValidationRules")]
+    partial class AddingValidationRules
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,7 +23,7 @@ namespace MedicalMarket.Data
 
             modelBuilder.Entity("MedicalMarket.Models.App.Cart", b =>
                 {
-                    b.Property<string>("RecodId")
+                    b.Property<string>("RecordId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("CartId");
@@ -32,9 +32,11 @@ namespace MedicalMarket.Data
 
                     b.Property<DateTime>("CreatedAt");
 
-                    b.Property<string>("Item");
+                    b.Property<string>("ItemId");
 
-                    b.HasKey("RecodId");
+                    b.HasKey("RecordId");
+
+                    b.HasIndex("ItemId");
 
                     b.ToTable("Carts");
                 });
@@ -50,7 +52,8 @@ namespace MedicalMarket.Data
 
                     b.Property<bool>("IsDeleted");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -86,13 +89,15 @@ namespace MedicalMarket.Data
 
                     b.Property<DateTime>("DeletedAt");
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .IsRequired();
 
                     b.Property<bool>("IsDeleted");
 
                     b.Property<bool>("IsOutOfStock");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.Property<decimal>("Price");
 
@@ -108,17 +113,26 @@ namespace MedicalMarket.Data
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Address");
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(70);
 
-                    b.Property<string>("FirstName");
+                    b.Property<string>("Email")
+                        .IsRequired();
 
-                    b.Property<string>("LastName");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(160);
 
                     b.Property<DateTime>("OrderDate");
 
-                    b.Property<string>("Phone");
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(24);
 
                     b.Property<decimal>("Total");
+
+                    b.Property<string>("UserName");
 
                     b.HasKey("Id");
 
@@ -165,6 +179,8 @@ namespace MedicalMarket.Data
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("Name");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
@@ -304,6 +320,13 @@ namespace MedicalMarket.Data
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("MedicalMarket.Models.App.Cart", b =>
+                {
+                    b.HasOne("MedicalMarket.Models.App.Item", "Item")
+                        .WithMany()
+                        .HasForeignKey("ItemId");
                 });
 
             modelBuilder.Entity("MedicalMarket.Models.App.Image", b =>

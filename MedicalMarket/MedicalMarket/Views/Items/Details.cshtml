@@ -64,7 +64,11 @@
                                 </ul>
                             </div>
                             <div class="share-desc">
-                                <div class="button"><span><a href="#">Add to Cart</a></span></div>
+                                <div class="button">
+                                    <span>
+                                        <a asp-controller="ShoppingCart" asp-action="AddToCart" asp-route-id="@Model.Id">Add to Cart</a>
+                                    </span>
+                                </div>
                                 <div class="clear"></div>
                             </div>
                         </div>

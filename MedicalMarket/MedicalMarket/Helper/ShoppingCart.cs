@@ -2,6 +2,7 @@
 using MedicalMarket.Models.App;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,10 @@ using System.Threading.Tasks;
 
 namespace MedicalMarket.Helper
 {
-    public class ShoppingCart
+    public class ShoppingCart 
     {
         private readonly ApplicationDbContext _context;
+
         string ShoppingCartId { get; set; }
         public const string CartSessionKey = "CartId";
 
@@ -19,13 +21,13 @@ namespace MedicalMarket.Helper
         {
             this._context = context;
         }
-        public ShoppingCart()
-        {
-        }
+
+
 
         public static ShoppingCart GetCart(HttpContext context)
         {
-            var cart = new ShoppingCart();
+            var db = context.RequestServices.GetService(typeof(ApplicationDbContext)) as ApplicationDbContext;
+            var cart = new ShoppingCart(db);
             cart.ShoppingCartId = cart.GetCartId(context);
             return cart;
         }
@@ -63,7 +65,7 @@ namespace MedicalMarket.Helper
         {
             var cartItem = _context.Carts
                         .Single(cart => cart.CartId == ShoppingCartId
-                        && cart.RecodId == id);
+                        && cart.RecordId == id);
 
             int itemCount = 0;
 
@@ -96,7 +98,7 @@ namespace MedicalMarket.Helper
 
         public List<Cart> GetCartItems()
         {
-            return _context.Carts.Where(c => c.CartId == ShoppingCartId).ToList();
+            return _context.Carts.Include(c => c.Item).Where(c => c.CartId == ShoppingCartId).ToList();
         }
 
         public int GetCount()
