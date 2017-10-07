@@ -10,6 +10,7 @@ namespace MedicalMarket.Models.App
     {
         public string Id { get; set; }
         [Required(ErrorMessage ="من فضلك ادخل اسم الصنف")]
+        [Display(Name="اسم الصنف")]
         public string Name { get; set; }
 
         [Display(Name = "هل الصنف غير موجود ؟")]
@@ -22,6 +23,7 @@ namespace MedicalMarket.Models.App
         public int Count { get; set; }
         public string CategoryId { get; set; }
         [Required]
+        [Display(Name = "التوقيت")]
         public DateTime CreateAt { get; set; }
         [Required]
         public DateTime DeletedAt { get; set; }

@@ -972,8 +972,13 @@ body {
 /*** Footer ***/
 
 .footer {
-	background: #e44f2b;
-	padding: 3% 0;
+    background: #e44f2b;
+    padding: 3% 0;
+  
+    /*position: absolute;
+    bottom: 0;
+    left: 0;
+    right:0;*/
 }
 
 .footer-nav {

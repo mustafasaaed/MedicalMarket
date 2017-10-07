@@ -33,7 +33,7 @@
     <div class="wrap">
         <div class="preview-page">
             <div class="section group">
-                <div class="cont-desc span_1_of_2">
+                <div class="cont-desc span_1_of_2" style="direction:rtl;">
                     <ul class="back-links">
                         <li><a href="#">Home</a> ::</li>
                         <li><a href="#">Product Page</a> ::</li>
@@ -56,17 +56,17 @@
                             <h2>@Model.Name</h2>
                             <p>@Model.Description</p>
                             <div class="price">
-                                <p>Price: <span>$@Model.Price</span></p>
+                                <p>السعر : <span>$@Model.Price</span></p>
                             </div>
                             <div class="available">
                                 <ul>
-                                    <li><span>Units in Stock:</span>&nbsp;  @Model.Count</li>
+                                    <li><span>الكميه :</span>&nbsp;  @Model.Count</li>
                                 </ul>
                             </div>
                             <div class="share-desc">
-                                <div class="button">
+                                <div class="button" style="float:left;">
                                     <span>
-                                        <a asp-controller="ShoppingCart" asp-action="AddToCart" asp-route-id="@Model.Id">Add to Cart</a>
+                                        <a asp-controller="ShoppingCart" asp-action="AddToCart" asp-route-id="@Model.Id">اضف الى العربه</a>
                                     </span>
                                 </div>
                                 <div class="clear"></div>
