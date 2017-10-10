@@ -4,50 +4,65 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+@Html.AntiForgeryToken()
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<table class="table table-striped" style="direction:rtl;">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CreateAt)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DeletedAt)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IsDeleted)
-                </th>
-            <th></th>
+            <th class="text-right">
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th class="text-right">
+                @Html.DisplayNameFor(model => model.CreateAt)
+            </th>
+            <th class="text-right">
+                خيارات اخرى
+            </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreateAt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DeletedAt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsDeleted)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateAt)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">تعديل</a> |
+                    <a id="deletebtn" data-id="@item.Id">حذف</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<div class="modal" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <button class="close" data-dismiss="modal" style="float:left;">&times;</button>
+                 <h4 class="modal-title">حذف</h4>
+             </div>
+             <div class="modal-body">
+                 <h3>هل انت متاكد من حذف هذا التصنيف ؟</h3>
+                 <p>من الممكن ان يترتب ع حذف هذا التصنيف حذف كل العناصر الموجوده بداخله</p>
+             </div>
+             <div class="modal-footer">
+                 <button class="btn btn-danger" id="del">حذف</button>
+             </div>
+         </div>
+    </div>
+</div>
+
+
+<p class="btn btn-default">
+    <a asp-action="Create">اضافة صنف</a>
+</p>
+
+@section Scripts{
+     <script src="~/js/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <script src="~/js/app/deleteCategoryAsync.js"></script>
+}

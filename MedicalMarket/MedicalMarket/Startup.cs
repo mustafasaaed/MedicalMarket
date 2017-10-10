@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MedicalMarket.Data;
 using MedicalMarket.Models;
 using MedicalMarket.Services;
+using MedicalMarket.Interfaces;
 
 namespace MedicalMarket
 {
@@ -35,12 +36,13 @@ namespace MedicalMarket
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddScoped<IDbInitializer, DbInitializer>();
             services.AddSession();
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IDbInitializer dbInitializer)
         {
             if (env.IsDevelopment())
             {
@@ -55,8 +57,9 @@ namespace MedicalMarket
 
             app.UseSession();
             app.UseStaticFiles();
-
+            
             app.UseAuthentication();
+            dbInitializer.Initialize();
 
             app.UseMvc(routes =>
             {

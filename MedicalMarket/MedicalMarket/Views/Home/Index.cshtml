@@ -14,8 +14,8 @@
                         @await Component.InvokeAsync("AllCategories")
                     </div>
                 </div>
-                <div class="content-bottom-right">
-                    <h3>Items</h3>
+                <div class="content-bottom-right" >
+                    <h3 style="padding-right: 24px;">الاصناف</h3>
                     <div class="section group">
                         @foreach (var item in Model)
                         {
@@ -38,7 +38,7 @@
                                             <p><span class="rupees">$@item.Price</span></p>
                                         </div>
                                         <div class="add-cart">
-                                            <h4><a asp-controller="Items" asp-action="Details" asp-route-id="@item.Id">More Info</a></h4>
+                                            <h4><a asp-controller="Items" asp-action="Details" asp-route-id="@item.Id">مزيد من المعلومات</a></h4>
                                         </div>
                                     </div>
                                     <div class="clear"></div>

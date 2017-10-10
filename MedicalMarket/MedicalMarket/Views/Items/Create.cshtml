@@ -33,7 +33,7 @@
 
             <div class="form-group">
                 <label class="control-label">Choose Images</label>
-                <input name="images" type="file"/>
+                <input name="images" type="file" multiple/>
             </div>
 
             <div class="form-group">
@@ -42,7 +42,9 @@
             </div>
 
             <div class="form-group">
-                <select class="form-control" asp-for="CategoryId" asp-items="@(new SelectList(@ViewBag.Categoreis, "Id", "Name"))"></select>
+                <select class="form-control" asp-for="CategoryId" asp-items="@(new SelectList(@ViewBag.Categoreis, "Id", "Name"))">
+                    <option value="">--اختار تصنيف--</option>
+                </select>
                 <span asp-validation-for="Category" class="text-danger"></span>
             </div>
 

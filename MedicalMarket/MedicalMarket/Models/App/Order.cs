@@ -32,6 +32,8 @@ namespace MedicalMarket.Models.App
         public decimal Total { get; set; }
         [ScaffoldColumn(false)]
         public DateTime OrderDate { get; set; }
+        [DisplayName("تم التوصيل")]
+        public bool IsFinished { get; set; }
         public ICollection<OrderDetail> OrderDetail { get; set; }
 
     }

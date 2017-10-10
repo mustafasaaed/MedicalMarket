@@ -44,6 +44,7 @@ namespace MedicalMarket.Controllers
             return View(category);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Categories/Create
         public IActionResult Create()
         {
@@ -54,6 +55,7 @@ namespace MedicalMarket.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,CreateAt,DeletedAt,IsDeleted")] Category category)
         {
@@ -67,6 +69,7 @@ namespace MedicalMarket.Controllers
         }
 
         // GET: Categories/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -86,6 +89,7 @@ namespace MedicalMarket.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("Id,Name,CreateAt,DeletedAt,IsDeleted")] Category category)
         {
@@ -117,33 +121,25 @@ namespace MedicalMarket.Controllers
             return View(category);
         }
 
-        // GET: Categories/Delete/5
-        public async Task<IActionResult> Delete(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var category = await _context.Categoreis
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (category == null)
-            {
-                return NotFound();
-            }
-
-            return View(category);
-        }
 
         // POST: Categories/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var category = await _context.Categoreis.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Categoreis.Remove(category);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                var category = await _context.Categoreis.Include(c => c.Items).SingleOrDefaultAsync(m => m.Id == id);
+                _context.Categoreis.Remove(category);
+                await _context.SaveChangesAsync();
+                return StatusCode(204);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500);
+            }
+
         }
 
         private bool CategoryExists(string id)

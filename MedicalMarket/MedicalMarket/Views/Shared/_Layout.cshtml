@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='http://fonts.googleapis.com/css?family=Ubuntu+Condensed' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Ubuntu+Condensed' rel='stylesheet' type='text/css'>
     <link href="~/css/style.css" rel="stylesheet" type="text/css" media="all" />
     <link href="~/css/easy-responsive-tabs.css" rel="stylesheet" type="text/css" media="all" />
     <link rel="stylesheet" href="~/css/etalage.css">
@@ -16,6 +16,7 @@
 
     <script type="text/javascript" src="~/js/jquery-1.9.0.min.js"></script>
     <script type="text/javascript" src="~/js/jquery.openCarousel.js"></script>
+    <script type="text/javascript" src="~/lib/bootstrap/js/modal.js"></script>
     <script type="text/javascript" src="~/js/easing.js"></script>
     <script type="text/javascript" src="~/js/move-top.js"></script>
     <script type="text/javascript" src="~/js/easyResponsiveTabs.js"></script>
@@ -30,25 +31,40 @@
                 <div class="clear"></div>
             </div>
             <div class="navigation">
-                @await Component.InvokeAsync("Nav")
+                @if (User.IsInRole("Admin"))
+                {
+                    @await Component.InvokeAsync("AdminNav")
+                }
+                else
+                {
+                    @await Component.InvokeAsync("Nav")
+                }
                 <span class="left-ribbon"> </span>
                 <span class="right-ribbon"> </span>
             </div>
         </div>
     </div>
     <!------------End Header ------------>
-    <div class="container body-content">
+    <div class="container body-content content">
         @RenderBody()
         <hr />
     </div>
 
-    <div class="footer">
+    @*<div class="footer">
         <div class="wrap">
             <div class="copy_right">
                 <p>Copy rights (c). All rights Reseverd | Template by <a href="http://w3layouts.com" target="_blank">W3Layouts</a> </p>
             </div>
         </div>
-    </div>
+    </div>*@
+    <footer class="">
+        <div class="">
+            <div class="copy_right">
+                <p>Copy rights (c). All rights Reseverd | Template by <a href="http://w3layouts.com" target="_blank">W3Layouts</a> </p>
+            </div>
+        </div>
+    </footer>
+    <a href="#" id="toTop"> </a>
     <script type="text/javascript">
         $(document).ready(function () {
             $().UItoTop({
@@ -58,7 +74,6 @@
         });
     </script>
     @RenderSection("Scripts", required: false)
-    <a href="#" id="toTop"> </a>
     <script type="text/javascript" src="~/js/navigation.js"></script>
 </body>
 </html>

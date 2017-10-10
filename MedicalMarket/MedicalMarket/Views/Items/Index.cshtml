@@ -50,7 +50,7 @@
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">تعديل</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">تفاصيل</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">مسح</a>
+                    <a id="deletebtn" data-id="@item.Id">حذف</a>
                 </td>
             </tr>
         }
@@ -58,6 +58,31 @@
 </table>
 
 
+
+<div class="modal" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal" style="float:left;">&times;</button>
+                <h4 class="modal-title">حذف</h4>
+            </div>
+            <div class="modal-body">
+                <h3>هل انت متاكد من حذف هذا العنصر ؟</h3>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="del">حذف</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <p style="float:right;" class="btn btn-default">
-    <a asp-action="Create">اضافة صنف</a>
+    <a asp-action="Create">اضافة عنصر</a>
 </p>
+
+
+@section Scripts{
+    <script src="~/js/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <script src="~/js/app/deleteItemAsync.js"></script>
+}

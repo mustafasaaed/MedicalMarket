@@ -9,6 +9,7 @@ using MedicalMarket.Data;
 using MedicalMarket.Models.App;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MedicalMarket.Controllers
 {
@@ -45,6 +46,7 @@ namespace MedicalMarket.Controllers
             return View(item);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Items/Create
         public IActionResult Create()
         {
@@ -56,6 +58,7 @@ namespace MedicalMarket.Controllers
         // POST: Items/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,IsOutOfStock,Price,Count,CategoryId,Description,CreateAt,DeletedAt,IsDeleted")] Item item, IEnumerable<IFormFile> images)
@@ -91,6 +94,8 @@ namespace MedicalMarket.Controllers
             }
 
             var item = await _context.Items.SingleOrDefaultAsync(m => m.Id == id);
+            var categoreis = _context.Categoreis.ToList();
+            ViewBag.Categoreis = categoreis;
             if (item == null)
             {
                 return NotFound();
@@ -101,9 +106,10 @@ namespace MedicalMarket.Controllers
         // POST: Items/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,Name,IsOutOfStock,Price,Count,CreateAt,DeletedAt,IsDeleted")] Item item)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,Name,CategoryId,IsOutOfStock,Price,Count,CreateAt,DeletedAt,IsDeleted,Description")] Item item)
         {
             if (id != item.Id)
             {
@@ -133,33 +139,25 @@ namespace MedicalMarket.Controllers
             return View(item);
         }
 
-        // GET: Items/Delete/5
-        public async Task<IActionResult> Delete(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var item = await _context.Items
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (item == null)
-            {
-                return NotFound();
-            }
-
-            return View(item);
-        }
-
+     
         // POST: Items/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var item = await _context.Items.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Items.Remove(item);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                var item = await _context.Items.Include(i => i.Images).SingleOrDefaultAsync(m => m.Id == id);
+                _context.Items.Remove(item);
+                await _context.SaveChangesAsync();
+                return StatusCode(200);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500);
+            }
+           
         }
 
         private bool ItemExists(string id)

@@ -1,4 +1,17 @@
 ﻿
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1 0 auto;
+}
+
 
 .preview-image {
     padding-top: 20px;
@@ -29,21 +42,71 @@
 
 
 .btn-file {
-    position:relative;
-    overflow:hidden;
+    position: relative;
+    overflow: hidden;
 }
 
-.btn-file input[type=file] {
-    position:absolute;
-    top:0;
-    right:0;
-    min-width:100%;
-    min-height:100%;
-    text-align:right;
-    filter:alpha(opacity=0);
-    opacity:0;
-    outline:none;
-    background-color:white;
-    cursor: inherit;
-    display:block;
+    .btn-file input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        text-align: right;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        outline: none;
+        background-color: white;
+        cursor: inherit;
+        display: block;
+    }
+
+#product-des {
+ margin-left:70px;
+}
+
+footer {
+    /*position: absolute;*/
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #e44f2b;
+}
+
+.footer-nav {
+    float: right;
+}
+
+.footer-nav li {
+    display: inline-block;
+    color: #FFF;
+    font-size: 14px;
+}
+
+.footer-nav li a {
+    color: #FFF;
+    margin: 0 10px;
+}
+
+.footer-nav li a:hover {
+    text-decoration: underline;
+}
+
+.copy_right {
+    float: left;
+}
+
+.copy_right p {
+    font-size: 14px;
+    color: #FFF;
+}
+
+.copy_right p a {
+    color: #FFF;
+    text-decoration: underline;
+}
+
+.copy_right p a:hover {
+    color: #222;
+    text-decoration: none;
 }

@@ -9,9 +9,14 @@ namespace MedicalMarket.Models.App
     public class Category
     {
         public string Id { get; set; }
-        [Required(ErrorMessage = "اسم الصنف مطلوب")]
+        [Display(Name = "الاسم")]
+        [Required(ErrorMessage = "من فضلك ادخل اسم التصنيف")]
         public string Name { get; set; }
+
+        [Display(Name = "التوقيت")]
+        [Required]
         public DateTime CreateAt { get; set; }
+        [Required]
         public DateTime DeletedAt { get; set; }
         public bool IsDeleted { get; set; }
         public ICollection<Item> Items { get; set; }
