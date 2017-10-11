@@ -7,6 +7,7 @@ using MedicalMarket.Data;
 using MedicalMarket.Helper;
 using MedicalMarket.ViewModels;
 using System.Text.Encodings.Web;
+using Microsoft.EntityFrameworkCore;
 
 namespace MedicalMarket.Controllers
 {
@@ -48,7 +49,9 @@ namespace MedicalMarket.Controllers
         public IActionResult RemoveFromCart(string id)
         {
             var cart = ShoppingCart.GetCart(this.HttpContext);
-            var ItemName = _context.Carts.SingleOrDefault(i => i.RecordId == id).Item.Name;
+            var ItemName = _context.Carts.Include(c=> c.Item)
+                                         .SingleOrDefault(i => i.RecordId == id)
+                                         .Item.Name;
 
             var itemCount = cart.RemoveFromCart(id);
 
@@ -61,8 +64,8 @@ namespace MedicalMarket.Controllers
                 ItemCount = itemCount,
                 DeleteId = id
             };
-
-            return Json(results);
+            return Ok(results);
+            //return Json(results);
         }
 
         // GET: /ShoppingCart/CartSummary

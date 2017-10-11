@@ -14,7 +14,7 @@
         $.post('Items/Delete/' + itemId, data)
             .done(function(response, status, jqxhr) {
                 $('#deleteModal').modal('hide');
-                location.reload();
+                location.reload(true);
             })
             .fail(function(jqxhr, status, error) {
                 alert('something went wrong! please try again later !')
