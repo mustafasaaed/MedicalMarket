@@ -30,7 +30,7 @@
         var orderId = $('#donebtn').attr('data-id');
         $.post('/Orders/done/' + orderId)
             .done(function (data) {
-                $('#deleteModal').modal('hide');
+                $('#doneModal').modal('hide');
                 $('#row-' + data).fadeOut('slow');
             })
             .fail(function (jqxhr, status, error) {
