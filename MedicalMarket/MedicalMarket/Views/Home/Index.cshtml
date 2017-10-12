@@ -14,34 +14,49 @@
                         @await Component.InvokeAsync("AllCategories")
                     </div>
                 </div>
-                <div class="content-bottom-right" >
+                <div class="content-bottom-right">
                     <h3 style="padding-right: 24px;">الاصناف</h3>
                     <div class="section group">
                         @foreach (var item in Model)
                         {
-                            <div class="grid_1_of_4 images_1_of_4">
-                                <div class="top">
-                                    <h4>
-                                        <a asp-controller="Items" asp-action="Details" asp-route-id="@item.Id">
-                                                @item.Name.Truncate(19)
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div class="middle">
-                                    <a asp-controller="Items" asp-action="Details" asp-route-id="@item.Id">
-                                        <img class="preview-image" src="data:image;base64,@Convert.ToBase64String(item.Images.FirstOrDefault().ImageData)" alt="" />
-                                    </a>
-                                </div>
-                                <div class="bottom-div">
-                                    <div class="price-details">
-                                        <div class="price-number">
-                                            <p><span class="rupees">$@item.Price</span></p>
-                                        </div>
-                                        <div class="add-cart">
-                                            <h4><a asp-controller="Items" asp-action="Details" asp-route-id="@item.Id">مزيد من المعلومات</a></h4>
-                                        </div>
+                            @*<div class="grid_1_of_4 images_1_of_4">
+                                    <div class="top">
+                                        <h4>
+                                            <a asp-controller="Items" asp-action="Details" asp-route-id="@item.Id">
+                                                    @item.Name.Truncate(19)
+                                            </a>
+                                        </h4>
                                     </div>
-                                    <div class="clear"></div>
+                                    <div class="middle">
+                                        <a asp-controller="Items" asp-action="Details" asp-route-id="@item.Id">
+                                            <img class="preview-image" src="data:image;base64,@Convert.ToBase64String(item.Images.FirstOrDefault().ImageData)" alt="" />
+                                        </a>
+                                    </div>
+                                    <div class="bottom-div">
+                                        <div class="price-details">
+                                            <div class="price-number">
+                                                <p><span class="rupees">$@item.Price</span></p>
+                                            </div>
+                                            <div class="add-cart">
+                                                <h4><a asp-controller="Items" asp-action="Details" asp-route-id="@item.Id">مزيد من المعلومات</a></h4>
+                                            </div>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                </div>*@
+
+                            <div class="col-lg-3 col-md-6 mb-4">
+                                <div class="card">
+                                    <img class="card-img-top" src="data:image;base64,@Convert.ToBase64String(item.Images.FirstOrDefault().ImageData)" alt="">
+                                    <div class="card-body">
+                                        <h4 class="card-title">
+                                            @item.Name.Truncate(19)
+                                        </h4>
+                                        <p class="card-text">@item.Description.Truncate(50)</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <a a asp-controller="Items"class="btn btn-success"  asp-action="Details" asp-route-id="@item.Id">مزيد من المعلومات</a>
+                                    </div>
                                 </div>
                             </div>
                         }
