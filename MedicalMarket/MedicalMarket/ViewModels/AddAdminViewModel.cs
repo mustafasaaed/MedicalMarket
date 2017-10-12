@@ -8,7 +8,8 @@ namespace MedicalMarket.ViewModels
 {
     public class AddAdminViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "من فضلك ادخل ايميل صحيح.")]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
     }
 }

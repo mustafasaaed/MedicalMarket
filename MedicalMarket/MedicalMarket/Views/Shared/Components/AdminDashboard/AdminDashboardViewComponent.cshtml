@@ -1,0 +1,86 @@
+﻿@model IEnumerable<MedicalMarket.Models.App.Order>
+
+
+<table class="table table-striped" id="" style="direction:rtl;">
+    <thead>
+        <tr>
+            <th class="text-right">
+                رقم الاوردر
+            </th>
+            <th class="text-right">
+                اسم صاحب الاوردر
+            </th>
+            <th class="text-right">
+                رقم الهاتف
+            </th>
+            <th class="text-right">
+                الإجمالى
+            </th>
+            <th class="text-right">
+                خيارات اخرى
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="row-@item.Id">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Total)
+                </td>
+                <td>
+                    <a asp-controller="Orders" asp-action="Edit" asp-route-id="@item.Id">تعديل</a> |
+                    <a asp-controller="Orders" asp-action="Details" asp-route-id="@item.Id">تفاصيل</a> |
+                    <a id="deletebtn" data-id="@item.Id">حذف</a>
+                    <a id="donebtn" data-id="@item.Id" class="btn btn-success" style="margin-right:10px;">تم</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+<div class="modal" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal" style="float:left;">&times;</button>
+                <h4 class="modal-title">حذف</h4>
+            </div>
+            <div class="modal-body">
+                <h3>هل انت متاكد من حذف هذا العنصر ؟</h3>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="del">حذف</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="doneModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal" style="float:left;">&times;</button>
+                <h4 class="modal-title">تم</h4>
+            </div>
+            <div class="modal-body">
+                <h3>هل انت متاكد من ان هذا الإورد قد تم ؟</h3>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="done-btn">تم</button>
+            </div>
+        </div>
+    </div>
+</div>

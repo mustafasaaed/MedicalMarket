@@ -38,6 +38,12 @@ namespace MedicalMarket.Controllers
                     return RedirectToAction("Index", "Home");
                 }
 
+                if (vm.Email == null)
+                {
+                    ModelState.TryAddModelError("Email", "من فضلك ادخل الايميل");
+                    return View(vm);
+                }
+
                 var user = await _userManager.FindByEmailAsync(vm.Email);
                 if (user != null)
                 {
@@ -49,6 +55,11 @@ namespace MedicalMarket.Controllers
 
                     await _userManager.AddToRoleAsync(user, "Admin");
                     return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.TryAddModelError("Email", "هذا الايميل غير موجود.");
+                    return View(vm);
                 }
             }
             return RedirectToAction("Index", "Home");

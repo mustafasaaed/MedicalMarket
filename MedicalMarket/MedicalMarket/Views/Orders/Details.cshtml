@@ -4,45 +4,64 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<div dir="rtl" style="margin-top:25px;">
+    <div class="form-group">
+        <label class="control-label">اسم صاحب الاوردر:</label>
+        <label class="control-label col-md-10">@Model.Name</label>
+    </div>
+    <div class="form-group">
+        <label class="control-label">رقم الهاتف:</label>
+        <label class="control-label" style="margin-right:150px;">@Model.Phone</label>
+    </div>
+    <div class="form-group">
+        <label class="control-label">الايميل:</label>
+        <label class="control-label" style="margin-right:150px;">@Model.Email</label>
+    </div>
+    <div class="form-group">
+        <label class="control-label">الإجمالى:</label>
+        <label class="control-label" style="margin-right:150px;">@Model.Total</label>
+    </div>
+    <div class="form-group">
+        <label class="control-label">العنوان:</label>
+        <label class="control-label" style="margin-right:150px;">@Model.Address</label>
+    </div>
+    <div class="form-group">
+        <label class="control-label">تم ؟</label>
+        @Html.DisplayFor(m => m.IsFinished)
+    </div>
+</div>
 
 <div>
-    <h4>Order</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.UserName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UserName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Phone)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Phone)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <h3>المشتريات</h3>
+    <table class="table table-striped" style="direction:rtl;">
+        <thead>
+            <tr>
+                <th class="text-right">
+                    اسم الصنف
+                </th>
+                <th class="text-right">
+                    الكميه
+                </th>
+                <th class="text-right">
+                    السعر (للواحده)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.OrderDetail)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UnitPrice)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>

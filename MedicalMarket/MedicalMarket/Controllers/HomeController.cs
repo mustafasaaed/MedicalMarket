@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using MedicalMarket.Models;
 using MedicalMarket.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MedicalMarket.Controllers
 {
@@ -18,6 +19,8 @@ namespace MedicalMarket.Controllers
         {
             this._context = context;
         }
+
+
 
         public IActionResult Index()
         {

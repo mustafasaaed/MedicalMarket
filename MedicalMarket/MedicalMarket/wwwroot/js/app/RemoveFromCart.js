@@ -2,7 +2,6 @@
 
 
     var count = $('#itemsTable').children('tbody').children('tr').length;
-    console.log(count);
     if (count <= 2) {
         $('#checkoutBtn').click(function (e) { e.preventDefault(); });
         $('#checkoutBtn').toggleClass("disabled");
@@ -21,7 +20,6 @@
                 function (data) {
                     // Successful requests get here
                     // Update the page elements
-                    console.log(data);
                     if (data.itemCount == 0) {
                         $('#row-' + data.deleteId).fadeOut('slow');
                     } else {
@@ -33,7 +31,6 @@
                     $('#cart-status').text('Cart (' + data.cartCount + ')');
 
                     var count = $('#itemsTable').length;
-                    console.log(count);
                     if (count == 1) {
                         $('#checkoutBtn').click(function (e) { e.preventDefault(); });
                         $('#checkoutBtn').toggleClass("disabled");

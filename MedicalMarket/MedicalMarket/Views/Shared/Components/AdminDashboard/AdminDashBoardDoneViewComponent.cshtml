@@ -1,0 +1,46 @@
+﻿@model IEnumerable<MedicalMarket.Models.App.Order>
+
+
+<table class="table table-striped" style="direction:rtl;">
+    <thead>
+        <tr>
+            <th class="text-right">
+                رقم الاوردر
+            </th>
+            <th class="text-right">
+                اسم صاحب الاوردر
+            </th>
+            <th class="text-right">
+                رقم الهاتف
+            </th>
+            <th class="text-right">
+                الإجمالى
+            </th>
+            <th class="text-right">
+                خيارات اخرى
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Total)
+                </td>
+                <td>
+                    <a asp-controller="Orders" asp-action="Details" asp-route-id="@item.Id">تفاصيل</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

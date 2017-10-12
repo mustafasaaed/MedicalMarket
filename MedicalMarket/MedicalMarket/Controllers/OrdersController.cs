@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MedicalMarket.Data;
 using MedicalMarket.Models.App;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MedicalMarket.Controllers
 {
@@ -19,10 +20,26 @@ namespace MedicalMarket.Controllers
             _context = context;
         }
 
-        // GET: Orders
-        public async Task<IActionResult> Index()
+        [Authorize(Roles = "Admin")]
+        public IActionResult Dashboard()
         {
-            return View(await _context.Orders.ToListAsync());
+            return View();
+        }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Done(string id)
+        {
+            try
+            {
+                var order = _context.Orders.FirstOrDefault(o => o.Id == id);
+                order.IsFinished = true;
+                _context.SaveChanges();
+                return Json(id);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500);
+            }
         }
 
         // GET: Orders/Details/5
@@ -34,6 +51,8 @@ namespace MedicalMarket.Controllers
             }
 
             var order = await _context.Orders
+                .Include(o => o.OrderDetail)
+                .ThenInclude(od => od.Item)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (order == null)
             {
@@ -42,6 +61,7 @@ namespace MedicalMarket.Controllers
 
             return View(order);
         }
+
 
         // GET: Orders/Create
         public IActionResult Create()
@@ -60,7 +80,7 @@ namespace MedicalMarket.Controllers
             {
                 _context.Add(order);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
             return View(order);
         }
@@ -86,7 +106,7 @@ namespace MedicalMarket.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Name,UserName,Email,Address,Phone")] Order order)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,Name,UserName,Email,Address,Phone")] Order order)
         {
             if (id != order.Id)
             {
@@ -111,38 +131,30 @@ namespace MedicalMarket.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
             return View(order);
         }
 
-        // GET: Orders/Delete/5
-        public async Task<IActionResult> Delete(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var order = await _context.Orders
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (order == null)
-            {
-                return NotFound();
-            }
-
-            return View(order);
-        }
 
         // POST: Orders/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var order = await _context.Orders.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Orders.Remove(order);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                var order = await _context.Orders.Include(o => o.OrderDetail).SingleOrDefaultAsync(m => m.Id == id);
+                _context.Orders.Remove(order);
+                await _context.SaveChangesAsync();
+                return Json(id);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500);
+            }
+           
         }
 
         private bool OrderExists(string id)
