@@ -16,7 +16,7 @@
             <div class="form-group">
                 <div class="checkbox">
                     <label dir="ltr">
-                        <input asp-for="IsOutOfStock"  /> @Html.DisplayNameFor(model => model.IsOutOfStock)
+                        <input asp-for="IsOutOfStock" /> @Html.DisplayNameFor(model => model.IsOutOfStock)
                     </label>
                 </div>
             </div>
@@ -32,8 +32,9 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label">Choose Images</label>
-                <input name="images" type="file" multiple/>
+                <label class="control-label">اختار ثلاث صور للمنتج</label>
+                <input name="images" type="file" multiple accept=".jpg,.jpeg" id="images" />
+                <span asp-validation-for="Images" class="text-danger"></span>
             </div>
 
             <div class="form-group">
@@ -43,7 +44,7 @@
             </div>
 
             <div class="form-group">
-                <select class="form-control" asp-for="CategoryId" asp-items="@(new SelectList(@ViewBag.Categoreis, "Id", "Name"))">
+                <select class="form-control" asp-for="CategoryId" required asp-items="@(new SelectList(@ViewBag.Categoreis, "Id", "Name"))">
                     <option value="">--اختار تصنيف--</option>
                 </select>
                 <span asp-validation-for="Category" class="text-danger"></span>
@@ -67,4 +68,5 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/app/itemCreate.js"></script>
 }

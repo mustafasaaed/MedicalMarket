@@ -44,7 +44,7 @@
                                 @foreach (var image in Model.Images)
                                 {
                                     <li>
-                                        <img class="etalage_thumb_image" src="data:image;base64,@Convert.ToBase64String(image.ImageData)" />
+                                        <img class="etalage_thumb_image image-Preview" src="data:image;base64,@Convert.ToBase64String(image.ImageData)" />
                                         <img class="etalage_source_image" src="data:image;base64,@Convert.ToBase64String(image.ImageData)" title="" />
                                     </li>
                                 }

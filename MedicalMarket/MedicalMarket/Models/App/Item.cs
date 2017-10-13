@@ -31,6 +31,7 @@ namespace MedicalMarket.Models.App
         public bool IsDeleted { get; set; }
         [Required(ErrorMessage = "من فضلك ادخل وصف للمنتج")]
         [MaxLength(1000, ErrorMessage = "من فضلك ادخل وصف اقل من 1000 حرف.")]
+        [MinLength(60, ErrorMessage = "من فضلك ادخل وصف اكبر من 60 حرف.")]
         public string Description { get; set; }
         public ICollection<Image> Images { get; set; }
         public Category Category { get; set; }

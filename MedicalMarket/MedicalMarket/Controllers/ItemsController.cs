@@ -67,6 +67,14 @@ namespace MedicalMarket.Controllers
             {
                 _context.Add(item);
 
+                if (images.Count() != 3)
+                {
+                    var categoreis = _context.Categoreis.ToList();
+                    ViewBag.Categoreis = categoreis;
+                    ModelState.TryAddModelError("Images", "من فضلك اختار 3 صور");
+                    return View(item);
+                }
+
                 if (images != null)
                 {
                     var imageList = new List<Image>();
