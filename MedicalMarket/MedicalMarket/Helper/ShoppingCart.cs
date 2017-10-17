@@ -37,7 +37,7 @@ namespace MedicalMarket.Helper
             return GetCart(controller.HttpContext);
         }
 
-        public void AddToCart(Item item)
+        public void AddToCart(Item item, int count)
         {
             var cartItem = _context.Carts
                 .SingleOrDefault(c => c.CartId == ShoppingCartId
@@ -47,7 +47,7 @@ namespace MedicalMarket.Helper
             {
                 cartItem = new Cart
                 {
-                    Count = 1,
+                    Count = count,
                     CreatedAt = DateTime.UtcNow,
                     CartId = ShoppingCartId,
                     ItemId = item.Id

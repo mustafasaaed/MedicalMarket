@@ -35,13 +35,23 @@ namespace MedicalMarket.Controllers
         }
 
         // GET: /Store/AddToCart/5
-        public IActionResult AddToCart(string id)
+        public IActionResult AddToCart(AddToCartViewModel vm)
         {
-            var addedItem = _context.Items.SingleOrDefault(i => i.Id == id);
+            if (vm.Id ==null)
+            {
+                return NotFound();
+            }
+
+            var addedItem = _context.Items.SingleOrDefault(i => i.Id == vm.Id);
+
+            if (addedItem == null)
+            {
+                return NotFound();
+            }
 
             var cart = ShoppingCart.GetCart(this.HttpContext);
-            cart.AddToCart(addedItem);
-            return RedirectToAction("Index");
+            cart.AddToCart(addedItem, vm.Count);
+            return StatusCode(200);
         }
 
         // AJAX: /ShoppingCart/RemoveFromCart/ID
