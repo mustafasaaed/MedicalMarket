@@ -36,7 +36,7 @@
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">تعديل</a> |
-                    <a id="deletebtn" style="cursor:pointer;" data-id="@item.Id">حذف</a>
+                    <a class="deletebtn" style="cursor:pointer;" data-id="@item.Id">حذف</a>
                 </td>
             </tr>
         }
@@ -51,8 +51,8 @@
                  <h4 class="modal-title">حذف</h4>
              </div>
              <div class="modal-body">
-                 <h3>هل انت متاكد من حذف هذا التصنيف ؟</h3>
-                 <p>من الممكن ان يترتب ع حذف هذا التصنيف حذف كل المنتجات الموجوده بداخله</p>
+                 <h3>هل انت متاكد من حذف هذا القسم ؟</h3>
+                 <p>من الممكن ان يترتب ع حذف هذا القسم حذف كل المنتجات الموجوده بداخله</p>
              </div>
              <div class="modal-footer">
                  <button class="btn btn-danger" id="del">حذف</button>

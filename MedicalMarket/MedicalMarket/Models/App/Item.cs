@@ -35,5 +35,6 @@ namespace MedicalMarket.Models.App
         public string Description { get; set; }
         public ICollection<Image> Images { get; set; }
         public Category Category { get; set; }
+        public OrderDetail OrderDetail { get; set; }
     }
 }

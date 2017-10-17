@@ -147,7 +147,7 @@ namespace MedicalMarket.Controllers
             return View(item);
         }
 
-     
+
         // POST: Items/Delete/5
         [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
@@ -156,7 +156,11 @@ namespace MedicalMarket.Controllers
         {
             try
             {
-                var item = await _context.Items.Include(i => i.Images).SingleOrDefaultAsync(m => m.Id == id);
+                var item = await _context.Items
+                    .Include(o => o.OrderDetail)
+                    .Include(i => i.Images)
+                    .SingleOrDefaultAsync(m => m.Id == id);
+
                 _context.Items.Remove(item);
                 await _context.SaveChangesAsync();
                 return StatusCode(200);
@@ -165,7 +169,6 @@ namespace MedicalMarket.Controllers
             {
                 return StatusCode(500);
             }
-           
         }
 
         private bool ItemExists(string id)

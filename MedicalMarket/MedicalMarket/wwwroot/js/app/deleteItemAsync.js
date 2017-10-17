@@ -1,22 +1,24 @@
-﻿$(document).ready(function() {
-    $('#deletebtn').on('click', function() {
+﻿$(document).ready(function () {
+
+    var id;
+    $('a.deletebtn').on('click', function () {
         $('#deleteModal').modal('show');
+        id = $(this).attr('data-id');
     });
 
-    $('#del').on('click', function() {
-        var itemId = $('#deletebtn').attr('data-id');
+    $('#del').on('click', function () {
         var token = $('input[name="__RequestVerificationToken"]').val();
 
         var data = {
             __RequestVerificationToken: token
         };
 
-        $.post('Items/Delete/' + itemId, data)
-            .done(function(response, status, jqxhr) {
+        $.post('Items/Delete/' + id, data)
+            .done(function (response, status, jqxhr) {
                 $('#deleteModal').modal('hide');
                 location.reload(true);
             })
-            .fail(function(jqxhr, status, error) {
+            .fail(function (jqxhr, status, error) {
                 alert('something went wrong! please try again later !')
             });
     });
