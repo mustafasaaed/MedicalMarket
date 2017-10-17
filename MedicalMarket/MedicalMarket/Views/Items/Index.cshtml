@@ -4,6 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
+<p style="float:right; margin:8px;" class="btn btn-default">
+    <a asp-action="Create">اضافة منتج</a>
+</p>
+
 
 <table class="table table-striped" style="direction:rtl;">
     <thead>
@@ -50,7 +54,7 @@
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">تعديل</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">تفاصيل</a> |
-                    <a id="deletebtn" data-id="@item.Id">حذف</a>
+                    <a id="deletebtn" style="cursor:pointer;" data-id="@item.Id">حذف</a>
                 </td>
             </tr>
         }
@@ -67,7 +71,7 @@
                 <h4 class="modal-title">حذف</h4>
             </div>
             <div class="modal-body">
-                <h3>هل انت متاكد من حذف هذا العنصر ؟</h3>
+                <h3>هل انت متاكد من حذف هذا المنتج ؟</h3>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-danger" id="del">حذف</button>
@@ -75,11 +79,6 @@
         </div>
     </div>
 </div>
-
-
-<p style="float:right;" class="btn btn-default">
-    <a asp-action="Create">اضافة عنصر</a>
-</p>
 
 
 @section Scripts{

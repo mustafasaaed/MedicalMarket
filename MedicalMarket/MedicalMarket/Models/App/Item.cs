@@ -9,11 +9,11 @@ namespace MedicalMarket.Models.App
     public class Item
     {
         public string Id { get; set; }
-        [Required(ErrorMessage ="من فضلك ادخل اسم الصنف")]
-        [Display(Name="اسم الصنف")]
+        [Required(ErrorMessage ="من فضلك ادخل اسم المنتج")]
+        [Display(Name="اسم المنتج")]
         public string Name { get; set; }
 
-        [Display(Name = "هل الصنف غير موجود ؟")]
+        [Display(Name = "هل المنتج غير موجود ؟")]
         public bool IsOutOfStock { get; set; }
         [Display(Name = "السعر")]
         [Required(ErrorMessage =  "من فضلك ادخل السعر")]

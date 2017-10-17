@@ -10,7 +10,7 @@ namespace MedicalMarket.Models.App
     {
         public string Id { get; set; }
         [Display(Name = "الاسم")]
-        [Required(ErrorMessage = "من فضلك ادخل اسم التصنيف")]
+        [Required(ErrorMessage = "من فضلك ادخل اسم القسم")]
         public string Name { get; set; }
 
         [Display(Name = "التوقيت")]

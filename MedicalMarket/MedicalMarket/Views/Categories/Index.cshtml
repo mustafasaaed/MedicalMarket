@@ -6,6 +6,10 @@
 
 @Html.AntiForgeryToken()
 
+<p class="btn btn-default" style="float:right; margin:8px;">
+    <a asp-action="Create">اضافة قسم</a>
+</p>
+
 <table class="table table-striped" style="direction:rtl;">
     <thead>
         <tr>
@@ -32,7 +36,7 @@
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">تعديل</a> |
-                    <a id="deletebtn" data-id="@item.Id">حذف</a>
+                    <a id="deletebtn" style="cursor:pointer;" data-id="@item.Id">حذف</a>
                 </td>
             </tr>
         }
@@ -48,7 +52,7 @@
              </div>
              <div class="modal-body">
                  <h3>هل انت متاكد من حذف هذا التصنيف ؟</h3>
-                 <p>من الممكن ان يترتب ع حذف هذا التصنيف حذف كل العناصر الموجوده بداخله</p>
+                 <p>من الممكن ان يترتب ع حذف هذا التصنيف حذف كل المنتجات الموجوده بداخله</p>
              </div>
              <div class="modal-footer">
                  <button class="btn btn-danger" id="del">حذف</button>
@@ -58,9 +62,7 @@
 </div>
 
 
-<p class="btn btn-default">
-    <a asp-action="Create">اضافة صنف</a>
-</p>
+
 
 @section Scripts{
      <script src="~/js/jquery-ui-1.12.1/jquery-ui.min.js"></script>
