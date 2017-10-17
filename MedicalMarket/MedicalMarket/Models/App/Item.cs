@@ -36,5 +36,6 @@ namespace MedicalMarket.Models.App
         public ICollection<Image> Images { get; set; }
         public Category Category { get; set; }
         public OrderDetail OrderDetail { get; set; }
+        public Cart Cart { get; set; }
     }
 }

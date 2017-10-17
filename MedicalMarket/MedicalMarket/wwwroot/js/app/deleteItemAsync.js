@@ -13,7 +13,7 @@
             __RequestVerificationToken: token
         };
 
-        $.post('Items/Delete/' + id, data)
+        $.post('Items/Delete/' + id, data)  
             .done(function (response, status, jqxhr) {
                 $('#deleteModal').modal('hide');
                 location.reload(true);

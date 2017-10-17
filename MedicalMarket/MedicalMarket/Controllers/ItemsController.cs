@@ -159,6 +159,7 @@ namespace MedicalMarket.Controllers
                 var item = await _context.Items
                     .Include(o => o.OrderDetail)
                     .Include(i => i.Images)
+                    .Include(c => c.Cart)
                     .SingleOrDefaultAsync(m => m.Id == id);
 
                 _context.Items.Remove(item);
