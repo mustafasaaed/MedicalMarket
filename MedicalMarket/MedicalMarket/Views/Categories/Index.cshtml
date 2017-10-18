@@ -1,4 +1,6 @@
-﻿@model IEnumerable<MedicalMarket.Models.App.Category>
+﻿@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@model IPagedList<MedicalMarket.Models.App.Category>
 
 @{
     ViewData["Title"] = "Index";
@@ -14,10 +16,10 @@
     <thead>
         <tr>
             <th class="text-right">
-                @Html.DisplayNameFor(model => model.Name)
+                الاسم
             </th>
             <th class="text-right">
-                @Html.DisplayNameFor(model => model.CreateAt)
+                التوقيت
             </th>
             <th class="text-right">
                 خيارات اخرى
@@ -43,21 +45,25 @@
     </tbody>
 </table>
 
+<div class="col-md-7">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+</div>
+
 <div class="modal" id="deleteModal" tabindex="-1">
     <div class="modal-dialog">
-         <div class="modal-content">
-             <div class="modal-header">
-                 <button class="close" data-dismiss="modal" style="float:left;">&times;</button>
-                 <h4 class="modal-title">حذف</h4>
-             </div>
-             <div class="modal-body">
-                 <h3>هل انت متاكد من حذف هذا القسم ؟</h3>
-                 <p>من الممكن ان يترتب ع حذف هذا القسم حذف كل المنتجات الموجوده بداخله</p>
-             </div>
-             <div class="modal-footer">
-                 <button class="btn btn-danger" id="del">حذف</button>
-             </div>
-         </div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal" style="float:left;">&times;</button>
+                <h4 class="modal-title">حذف</h4>
+            </div>
+            <div class="modal-body">
+                <h3>هل انت متاكد من حذف هذا القسم ؟</h3>
+                <p>من الممكن ان يترتب ع حذف هذا القسم حذف كل المنتجات الموجوده بداخله</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="del">حذف</button>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -65,6 +71,6 @@
 
 
 @section Scripts{
-     <script src="~/js/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <script src="~/js/jquery-ui-1.12.1/jquery-ui.min.js"></script>
     <script src="~/js/app/deleteCategoryAsync.js"></script>
 }

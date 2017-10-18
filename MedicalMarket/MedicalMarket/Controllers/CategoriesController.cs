@@ -22,9 +22,13 @@ namespace MedicalMarket.Controllers
         }
 
         // GET: Categories
-        public async Task<IActionResult> Index()
+        public IActionResult Index(int page = 1)
         {
-            return View(await _context.Categoreis.ToListAsync());
+            var model = _context
+                .Categoreis
+                .ToPagedList(page,10);
+
+            return View(model);
         }
 
         public IActionResult Category(string id, int page = 1)

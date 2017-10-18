@@ -131,3 +131,19 @@ footer {
 .cursor{
     cursor:pointer;
 }
+
+.pagination > li:first-child > a, .pagination > li:first-child > span {
+    background-color: #e05a43;
+    border-color: #e05a43;
+}
+
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+    z-index: 3;
+    color: #fff;
+    cursor: default;
+    background-color: #ed3b1c;
+    border-color: #ed3b1c;
+}

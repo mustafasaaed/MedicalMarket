@@ -10,6 +10,7 @@ using MedicalMarket.Models.App;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Authorization;
+using X.PagedList;
 
 namespace MedicalMarket.Controllers
 {
@@ -23,9 +24,10 @@ namespace MedicalMarket.Controllers
         }
 
         // GET: Items
-        public async Task<IActionResult> Index()
+        public IActionResult Index(int page = 1)
         {
-            return View(await _context.Items.ToListAsync());
+            var model = _context.Items.ToPagedList(page, 10);
+            return View(model);
         }
 
         // GET: Items/Details/5

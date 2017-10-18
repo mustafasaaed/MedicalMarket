@@ -1,4 +1,6 @@
-﻿@model IEnumerable<MedicalMarket.Models.App.Item>
+﻿@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@model IPagedList<MedicalMarket.Models.App.Item>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,19 +15,19 @@
     <thead>
         <tr>
             <th class="text-right">
-                @Html.DisplayNameFor(model => model.Name)
+                الاسم
             </th>
             <th class="text-right">
-                @Html.DisplayNameFor(model => model.IsOutOfStock)
+                هل المنتج غير موجود ؟
             </th>
             <th class="text-right">
-                @Html.DisplayNameFor(model => model.Price)
+                السعر
             </th>
             <th class="text-right">
-                @Html.DisplayNameFor(model => model.Count)
+                الكميه
             </th>
             <th class="text-right">
-                @Html.DisplayNameFor(model => model.CreateAt)
+                التوقيت
             </th>
             <th class="text-right">
                 خيارات اخرى
@@ -60,6 +62,10 @@
         }
     </tbody>
 </table>
+
+<div class="col-md-7">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+</div>
 
 
 
