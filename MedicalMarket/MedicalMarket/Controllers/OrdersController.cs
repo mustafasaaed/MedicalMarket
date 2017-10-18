@@ -26,6 +26,17 @@ namespace MedicalMarket.Controllers
             return View();
         }
 
+        [Authorize]
+        public IActionResult MyOrders()
+        {
+            var model = _context.Orders
+                .Include(o => o.OrderDetail)
+                .Where(o => o.UserName == User.Identity.Name)
+                .ToList();
+
+            return View(model);
+        }
+
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Done(string id)
         {
@@ -72,6 +83,7 @@ namespace MedicalMarket.Controllers
         // POST: Orders/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,UserName,Email,Address,Phone")] Order order)
@@ -86,6 +98,7 @@ namespace MedicalMarket.Controllers
         }
 
         // GET: Orders/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -104,6 +117,7 @@ namespace MedicalMarket.Controllers
         // POST: Orders/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("Id,Name,UserName,Email,Address,Phone")] Order order)
