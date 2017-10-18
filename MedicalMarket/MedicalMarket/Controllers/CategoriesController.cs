@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using MedicalMarket.Data;
 using MedicalMarket.Models.App;
 using Microsoft.AspNetCore.Authorization;
+using X.PagedList;
 
 namespace MedicalMarket.Controllers
 {
@@ -24,6 +25,14 @@ namespace MedicalMarket.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _context.Categoreis.ToListAsync());
+        }
+
+        public IActionResult Category(string id, int page = 1)
+        {
+            var model = _context.Items.Where(i => i.Category.Id == id)
+                                      .Include(i => i.Images)
+                                      .ToPagedList(page, 9);
+            return View(model);
         }
 
         // GET: Categories/Details/5

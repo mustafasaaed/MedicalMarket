@@ -1,5 +1,5 @@
 ﻿@using MedicalMarket.Extensions
-@using X.PagedList.Mvc.Core; 
+@using X.PagedList.Mvc.Core;
 @using X.PagedList;
 @model IPagedList<MedicalMarket.Models.App.Item>
 
@@ -27,7 +27,7 @@
                         <div class="row">
                             @foreach (var item in Model)
                             {
-                                <div class="col-lg-3 col-md-6 mb-4"  style="padding-bottom:8px;">
+                                <div class="col-lg-3 col-md-6 mb-4" style="padding-bottom:8px;">
                                     <div class="card">
                                         <img class="card-img-top" src="data:image;base64,@Convert.ToBase64String(item.Images.FirstOrDefault().ImageData)" alt="">
                                         <div class="card-body">
@@ -44,7 +44,9 @@
                             }
                         </div>
                     </div>
-                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                    <div class="col-md-7">
+                        @Html.PagedListPager(Model, page => Url.Action("Category", "Categories", new { Id = Model.FirstOrDefault().CategoryId, page }))
+                    </div>
                 </div>
                 <div class="clear"></div>
             </div>

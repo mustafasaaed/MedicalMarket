@@ -5,6 +5,6 @@
 
     @foreach (var item in Model)
     {
-        <li><a asp-controller="Home" asp-action="Category" asp-route-id="@item.Id">@item.Name</a></li>
+        <li><a asp-controller="Categories" asp-action="Category" asp-route-id="@item.Id">@item.Name</a></li>
     }
 </ul>

@@ -8,6 +8,7 @@ using MedicalMarket.Models;
 using MedicalMarket.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using X.PagedList;
 
 namespace MedicalMarket.Controllers
 {
@@ -20,20 +21,13 @@ namespace MedicalMarket.Controllers
             this._context = context;
         }
 
-
-
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
-            var model = _context.Items.Include(i => i.Images).ToList();
+            var model = _context.Items
+                .Include(i => i.Images)
+                .ToPagedList(page, 9);
+
             return View(model);
-        }
-
-        public IActionResult Category(string id)
-        {
-            var model = _context.Items.Where(i => i.Category.Id == id)
-                                      .Include(i => i.Images)
-                                      .ToList();
-            return View("Index", model);
         }
 
         public IActionResult Preview()
