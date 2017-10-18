@@ -24,6 +24,7 @@ namespace MedicalMarket.Controllers
         }
 
         // GET: Items
+        [Authorize(Roles = "Admin")]
         public IActionResult Index(int page = 1)
         {
             var model = _context.Items.ToPagedList(page, 10);
@@ -31,6 +32,7 @@ namespace MedicalMarket.Controllers
         }
 
         // GET: Items/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -96,6 +98,7 @@ namespace MedicalMarket.Controllers
         }
 
         // GET: Items/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)

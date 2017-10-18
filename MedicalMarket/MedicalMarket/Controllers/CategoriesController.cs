@@ -22,6 +22,7 @@ namespace MedicalMarket.Controllers
         }
 
         // GET: Categories
+        [Authorize(Roles = "Admin")]
         public IActionResult Index(int page = 1)
         {
             var model = _context
@@ -30,6 +31,7 @@ namespace MedicalMarket.Controllers
 
             return View(model);
         }
+
 
         public IActionResult Category(string id, int page = 1)
         {

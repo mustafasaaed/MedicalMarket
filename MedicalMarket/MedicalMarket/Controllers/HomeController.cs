@@ -30,11 +30,6 @@ namespace MedicalMarket.Controllers
             return View(model);
         }
 
-        public IActionResult Preview()
-        {
-            return View();
-        }
-
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

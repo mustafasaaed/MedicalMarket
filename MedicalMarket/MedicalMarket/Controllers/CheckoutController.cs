@@ -20,12 +20,14 @@ namespace MedicalMarket.Controllers
         {
             this._context = context;
         }
+        [Authorize]
         public ActionResult AddressAndPayment()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult AddressAndPayment(IFormCollection values)
         {
             var order = new Order();
@@ -56,6 +58,7 @@ namespace MedicalMarket.Controllers
 
         //
         // GET: /Checkout/Complete
+        [Authorize]
         public ActionResult Complete(string id)
         {
             // Validate customer owns this order
