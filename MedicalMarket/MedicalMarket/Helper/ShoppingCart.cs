@@ -135,6 +135,8 @@ namespace MedicalMarket.Helper
                     Quantity = item.Count
                 };
 
+                item.Item.Count -= item.Count; 
+
                 orderTotal += (item.Count * item.Item.Price);
                 _context.OrderDetails.Add(orderDetail);
             }
