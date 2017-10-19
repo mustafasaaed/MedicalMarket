@@ -1,21 +1,25 @@
 ﻿$(document).ready(function () {
-    $('#donebtn').on('click', function () {
+    var delid;
+    var doneid;
+
+    $('a.donebtn').on('click', function () {
         $('#doneModal').modal('show');
+        doneid = $(this).attr('data-id');
     });
 
-    $('#deletebtn').on('click', function () {
+    $('a.deletebtn').on('click', function () {
         $('#deleteModal').modal('show');
+        delid = $(this).attr('data-id');
     });
 
     $('#del').on('click', function () {
-        var itemId = $('#deletebtn').attr('data-id');
         var token = $('input[name="__RequestVerificationToken"]').val();
 
         var data = {
             __RequestVerificationToken: token
         };
 
-        $.post('/Orders/Delete/' + itemId, data)
+        $.post('/Orders/Delete/' + delid, data)
             .done(function (response, status, jqxhr) {
                 $('#deleteModal').modal('hide');
                 $('#row-' + response).fadeOut('slow');
@@ -27,8 +31,7 @@
 
 
     $('#done-btn').on('click', function () {
-        var orderId = $('#donebtn').attr('data-id');
-        $.post('/Orders/done/' + orderId)
+        $.post('/Orders/done/' + doneid)
             .done(function (data) {
                 $('#doneModal').modal('hide');
                 $('#row-' + data).fadeOut('slow');

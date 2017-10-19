@@ -40,8 +40,8 @@
                 <td>
                     <a asp-controller="Orders" asp-action="Edit" asp-route-id="@item.Id">تعديل</a> |
                     <a asp-controller="Orders" asp-action="Details" asp-route-id="@item.Id">تفاصيل</a> |
-                    <a id="deletebtn" data-id="@item.Id">حذف</a>
-                    <a id="donebtn" data-id="@item.Id" class="btn btn-success" style="margin-right:10px;">تم</a>
+                    <a class="deletebtn" data-id="@item.Id" style="cursor:pointer;">حذف</a>
+                    <a data-id="@item.Id" class="btn btn-success donebtn" style="margin-right:10px;">تم</a>
                 </td>
             </tr>
         }
