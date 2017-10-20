@@ -13,8 +13,11 @@
     <li>
         <a class="menu-items" asp-controller="Items" asp-action="Index">المنتجات</a>
     </li>
-    <li>
+    @*<li>
         <a class="menu-items" asp-controller="Roles" asp-action="AddAdmin">إضافة مدير</a>
+    </li>*@
+    <li>
+        <a class="menu-items" asp-controller="Admin" asp-action="Index">المديرون</a>
     </li>
 @await Html.PartialAsync("_LoginPartial")
 </ul>

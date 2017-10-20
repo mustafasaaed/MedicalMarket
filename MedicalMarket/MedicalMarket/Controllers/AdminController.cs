@@ -3,24 +3,46 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Identity;
 using MedicalMarket.Data;
+using X.PagedList;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using MedicalMarket.Models;
 using MedicalMarket.ViewModels;
-using Microsoft.AspNetCore.Authorization;
 
 namespace MedicalMarket.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class RolesController : Controller
+    public class AdminController : Controller
     {
+        private readonly ApplicationDbContext _context;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public RolesController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
+
+        public AdminController(ApplicationDbContext context, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
+            this._context = context;
             this._roleManager = roleManager;
             this._userManager = userManager;
+        }
+        public IActionResult Index(int page = 1)
+        {
+            var adminRoleId = _context.Roles
+                .Where(r => r.Name == "Admin")
+                .Select(r => r.Id)
+                .FirstOrDefault();
+
+            var userIds = _context.UserRoles
+                .Where(ur => ur.RoleId == adminRoleId)
+                .Select(u => u.UserId)
+                .Distinct()
+                .ToList();
+
+            var users = _context.Users.Where(a => userIds.Any(c => c == a.Id))
+                .ToPagedList(page, 10);
+
+            return View(users);
         }
 
         public IActionResult AddAdmin()
@@ -54,7 +76,7 @@ namespace MedicalMarket.Controllers
                     }
 
                     await _userManager.AddToRoleAsync(user, "Admin");
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Admin");
                 }
                 else
                 {
@@ -74,6 +96,25 @@ namespace MedicalMarket.Controllers
                 else return false;
             }
             return false;
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RemoveAdmin(string email)
+        {
+            if (email != null && !string.IsNullOrWhiteSpace(email))
+            {
+                var user = _context.Users.FirstOrDefault(u => u.Email == email);
+
+                if (user == null)
+                {
+                    return StatusCode(404, new { msg = "user is not found !" });
+                }
+
+                await _userManager.RemoveFromRoleAsync(user, "Admin");
+                return StatusCode(200);
+            }
+            return StatusCode(404);
         }
     }
 }

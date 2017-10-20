@@ -1,25 +1,24 @@
 ﻿@using X.PagedList.Mvc.Core;
 @using X.PagedList;
-@model IPagedList<MedicalMarket.Models.App.Category>
+@model IPagedList<ApplicationUser>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "المديرون";
 }
 
 @Html.AntiForgeryToken()
 
 <p class="btn btn-default" style="float:right; margin:8px;">
-    <a asp-action="Create">اضافة قسم</a>
+    <a asp-action="AddAdmin">اضافة مدير</a>
 </p>
+
+@Html.AntiForgeryToken()
 
 <table class="table table-striped" style="direction:rtl;">
     <thead>
         <tr>
             <th class="text-right">
-                الاسم
-            </th>
-            <th class="text-right">
-                التوقيت
+                الايميل
             </th>
             <th class="text-right">
                 خيارات اخرى
@@ -31,14 +30,10 @@
         {
             <tr id="row-@item.Id">
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    @Html.DisplayFor(modelItem => item.UserName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CreateAt)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">تعديل</a> |
-                    <a class="deletebtn" style="cursor:pointer;" data-id="@item.Id">حذف</a>
+                    <a class="deletebtn" style="cursor:pointer;" data-id="@item.Id" data-email="@item.Email">حذف</a>
                 </td>
             </tr>
         }
@@ -57,8 +52,7 @@
                 <h4 class="modal-title">حذف</h4>
             </div>
             <div class="modal-body">
-                <h3>هل انت متاكد من حذف هذا القسم ؟</h3>
-                <p>من الممكن ان يترتب ع حذف هذا القسم حذف كل المنتجات الموجوده بداخله</p>
+                <h3>هل انت متاكد من حذف هذا المدير ؟</h3>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-danger" id="del">حذف</button>
@@ -72,5 +66,7 @@
 
 @section Scripts{
     <script src="~/js/jquery-ui-1.12.1/jquery-ui.min.js"></script>
-    <script src="~/js/app/deleteCategoryAsync.js"></script>
+    <script src="~/js/app/deleteAdminAsync.js"></script>
 }
+
+

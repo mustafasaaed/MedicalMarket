@@ -17,7 +17,7 @@
         $.post('Categories/Delete/' + id, data)
             .done(function(response, status, jqxhr) {
                 $('#deleteModal').modal('hide');
-                location.reload(true);
+                $('#row-' + id).fadeOut('slow');
             })
             .fail(function(jqxhr, status, error) {
                 alert('something went wrong! please try again later !')
