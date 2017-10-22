@@ -22,6 +22,9 @@
                 الإجمالى
             </th>
             <th class="text-right">
+                التوقيت
+            </th>
+            <th class="text-right">
                 خيارات اخرى
             </th>
         </tr>
@@ -41,6 +44,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Total)
+                </td>
+                <td>
+                    @item.OrderDate.ToEgyptDateTime()
                 </td>
                 <td>
                     <a asp-controller="Orders" asp-action="Details" asp-route-id="@item.Id">تفاصيل</a>

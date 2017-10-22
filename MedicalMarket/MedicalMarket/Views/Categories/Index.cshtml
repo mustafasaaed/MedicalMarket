@@ -34,14 +34,15 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CreateAt)
+                    @*@Html.DisplayFor(modelItem => item.CreateAt.ToEgyptDateTime())*@
+                    @item.CreateAt.ToEgyptDateTime()
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">تعديل</a> |
                     <a class="deletebtn" style="cursor:pointer;" data-id="@item.Id">حذف</a>
                 </td>
             </tr>
-        }
+                        }
     </tbody>
 </table>
 

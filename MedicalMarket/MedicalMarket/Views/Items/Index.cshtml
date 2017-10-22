@@ -51,7 +51,8 @@
                     @Html.DisplayFor(modelItem => item.Count)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CreateAt)
+                    @*@Html.DisplayFor(modelItem => item.CreateAt.ToEgyptDateTime())*@
+                    @item.CreateAt.ToEgyptDateTime()
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">تعديل</a> |

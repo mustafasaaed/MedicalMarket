@@ -12,6 +12,7 @@ using MedicalMarket.Data;
 using MedicalMarket.Models;
 using MedicalMarket.Services;
 using MedicalMarket.Interfaces;
+using System.Globalization;
 
 namespace MedicalMarket
 {
@@ -34,6 +35,14 @@ namespace MedicalMarket
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("ar-EG");
+                options.SupportedCultures = new List<CultureInfo> { new CultureInfo("ar-EG"), new CultureInfo("ar-EG") };
+                options.RequestCultureProviders.Clear();
+            });
+
+
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddScoped<IDbInitializer, DbInitializer>();
@@ -55,6 +64,7 @@ namespace MedicalMarket
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseRequestLocalization();
             app.UseSession();
             app.UseStaticFiles();
             
