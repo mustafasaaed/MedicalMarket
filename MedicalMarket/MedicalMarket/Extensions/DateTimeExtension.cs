@@ -9,11 +9,12 @@ namespace MedicalMarket.Extensions
     {
         public static DateTime ToEgyptDateTime(this DateTime value)
         {
-            if (value != null)
-            {
-                return value.ToLocalTime();
-            }
-            return value;
+            if (value == null)
+                return value;
+
+            //Egypt Standard Time
+            var toZone = TimeZoneInfo.FindSystemTimeZoneById("Egypt Standard Time");
+            return TimeZoneInfo.ConvertTime(value, toZone);
         }
     }
 }
