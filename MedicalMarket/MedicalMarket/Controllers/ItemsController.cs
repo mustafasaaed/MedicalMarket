@@ -32,7 +32,6 @@ namespace MedicalMarket.Controllers
         }
 
         // GET: Items/Details/5
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
