@@ -5,6 +5,11 @@
     <UserSecretsId>aspnet-MedicalMarket-B2F019D7-01F5-453F-B525-F8B3CABB8146</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Properties\PublishProfiles\MedicalMarket - Web Deploy.pubxml" />
+    <None Remove="Properties\PublishProfiles\MedicalMarket20171012062645 - Web Deploy.pubxml" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
@@ -25,6 +30,10 @@
     <None Include="wwwroot\js\jquery-ui-1.12.1\external\jquery\jquery.js" />
     <None Include="wwwroot\js\jquery-ui-1.12.1\jquery-ui.js" />
     <None Include="wwwroot\js\jquery-ui-1.12.1\jquery-ui.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
 
 </Project>
