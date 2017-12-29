@@ -45,13 +45,13 @@ namespace MedicalMarket
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
-            services.AddScoped<IDbInitializer, DbInitializer>();
+            //services.AddScoped<IDbInitializer, DbInitializer>();
             services.AddSession();
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IDbInitializer dbInitializer)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -69,7 +69,6 @@ namespace MedicalMarket
             app.UseStaticFiles();
             
             app.UseAuthentication();
-            dbInitializer.Initialize();
 
             app.UseMvc(routes =>
             {

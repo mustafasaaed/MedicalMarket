@@ -56,7 +56,7 @@ namespace MedicalMarket.Helper
             }
             else
             {
-                cartItem.Count++;
+                cartItem.Count+= count;
             }
             _context.SaveChanges();
         }
