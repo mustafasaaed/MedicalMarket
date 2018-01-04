@@ -70,11 +70,11 @@ namespace MedicalMarket.Controllers
             {
                 _context.Add(item);
 
-                if (images.Count() != 3)
+                if (images.Count() != 1)
                 {
                     var categoreis = _context.Categoreis.ToList();
                     ViewBag.Categoreis = categoreis;
-                    ModelState.TryAddModelError("Images", "من فضلك اختار 3 صور");
+                    ModelState.TryAddModelError("Images", "من فضلك اختار  صوره واحده");
                     return View(item);
                 }
 
