@@ -27,7 +27,9 @@ namespace MedicalMarket.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Index(int page = 1)
         {
-            var model = _context.Items.ToPagedList(page, 10);
+            var model = _context.Items
+                .Where(i => i.IsDeleted == false)
+                .ToPagedList(page, 10);
             return View(model);
         }
 
@@ -161,14 +163,22 @@ namespace MedicalMarket.Controllers
             try
             {
                 var item = await _context.Items
+                    .Where(i => i.Id == id)
                     .Include(o => o.OrderDetail)
                     .Include(i => i.Images)
                     .Include(c => c.Cart)
-                    .SingleOrDefaultAsync(m => m.Id == id);
+                    .FirstOrDefaultAsync();
 
-                _context.Items.Remove(item);
-                await _context.SaveChangesAsync();
-                return StatusCode(200);
+                if (item != null)
+                {
+                    item.IsDeleted = true;
+                    //_context.Items.Update(item);
+                    await _context.SaveChangesAsync();
+                    return StatusCode(200);
+                }
+
+                return NotFound();
+
             }
             catch (Exception ex)
             {

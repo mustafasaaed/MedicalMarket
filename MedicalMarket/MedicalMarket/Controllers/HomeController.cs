@@ -24,6 +24,7 @@ namespace MedicalMarket.Controllers
         public IActionResult Index(int page = 1)
         {
             var model = _context.Items
+                .Where(i => i.IsDeleted == false)
                 .Include(i => i.Images)
                 .ToPagedList(page, 9);
 
