@@ -35,7 +35,7 @@ namespace MedicalMarket.Controllers
 
         public IActionResult Category(string id, int page = 1)
         {
-            var model = _context.Items.Where(i => i.Category.Id == id)
+            var model = _context.Items.Where(i => i.Category.Id == id && i.IsDeleted == false)
                                       .Include(i => i.Images)
                                       .ToPagedList(page, 9);
             return View(model);
